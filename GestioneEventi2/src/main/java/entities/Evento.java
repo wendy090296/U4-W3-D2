@@ -2,7 +2,8 @@ package entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+//import java.util.Date;
 
 
 @Entity // classe che avrà tabella corrispondente nel DB
@@ -12,9 +13,9 @@ public class Evento {
     // ATTRIBUTI
     @Id // PK
     @GeneratedValue // id gestiti in automatico dal DB
-    private int id;
+    private long id;
     private String titolo;
-    private Date dataEvento;
+    private LocalDate dataEvento;
     private String descrizione;
     @Enumerated(EnumType.STRING)
     private EventType eventType;
@@ -29,7 +30,7 @@ public class Evento {
 
     }
 
-    public Evento(String titolo, Date dataEvento, String descrizione, EventType eventType, int numeroMaxPartecipanti) {
+    public Evento(String titolo, LocalDate dataEvento, String descrizione, EventType eventType, int numeroMaxPartecipanti) {
         this.titolo = titolo;
         this.dataEvento = dataEvento;
         this.descrizione = descrizione;
@@ -40,7 +41,7 @@ public class Evento {
 
     // GETTERS
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -52,7 +53,7 @@ public class Evento {
         return titolo;
     }
 
-    public Date getDataEvento() {
+    public LocalDate getDataEvento() {
         return dataEvento;
     }
 
