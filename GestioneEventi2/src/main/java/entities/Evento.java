@@ -1,18 +1,20 @@
 package entities;
 
+import entities.EventType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 //import java.util.Date;
 
 
 @Entity // classe che avrà tabella corrispondente nel DB
-//@Table(name="events") // nome della tabella nel mio DB
+@Table(name="events") // nome della tabella nel mio DB
 public class Evento {
 
     // ATTRIBUTI
     @Id // PK
-    @GeneratedValue // id gestiti in automatico dal DB
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// id gestiti in automatico dal DB
     private long id;
     private String titolo;
     private LocalDate dataEvento;
@@ -20,6 +22,11 @@ public class Evento {
     @Enumerated(EnumType.STRING)
     private EventType eventType;
     private int numeroMaxPartecipanti;
+    @OneToMany
+    @JoinColumn(name="partecipazione_id", nullable= false)
+    private Partecipazione partecipazione;
+    @JoinColumn(name = "location_id", nullable=false)
+    private Location location;
 
 
  // COSTRUTTORI

@@ -1,4 +1,4 @@
-package entities.dao;
+package dao;
 
 import entities.Evento;
 import jakarta.persistence.EntityManager;
