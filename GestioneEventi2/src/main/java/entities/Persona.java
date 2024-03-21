@@ -9,8 +9,8 @@ import java.util.List;
 
 @Entity
 @Table(name="people")
-
 public class Persona {
+    //ATTRIBUTI
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,12 +18,18 @@ public class Persona {
     private String cognome;
     private String email;
     private LocalDate data_di_nascita;
+    @Enumerated(EnumType.STRING)
     private Sesso sesso;
-    @OneToMany // relazione CON ENTITÀ PARTECIPAZIONE
-    private Partecipazione partecipazione;
+    @OneToMany(mappedBy = "persona") // relazione CON ENTITÀ PARTECIPAZIONE
+    private List<Partecipazione> partecipazione;
 
+ // COSTRUTTORE VUOTO
+    public Persona() {
+    }
 
-    public Persona(String nome, String cognome, String email, LocalDate data_di_nascita, Sesso sesso, Partecipazione partecipazione){
+    //ALTRI COSTRUTTORI
+
+    public Persona(String nome, String cognome, String email, LocalDate data_di_nascita, Sesso sesso, List<Partecipazione> partecipazione){
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
@@ -31,6 +37,8 @@ public class Persona {
         this.sesso = sesso;
         this.partecipazione = partecipazione;
     }
+
+    //GETTERS E SETTERS
 
     public long getId() {
         return id;
@@ -80,11 +88,11 @@ public class Persona {
         this.sesso = sesso;
     }
 
-    public Partecipazione getPartecipazione() {
+    public List<Partecipazione> getPartecipazione() {
         return partecipazione;
     }
 
-    public void setPartecipazione(Partecipazione partecipazione) {
+    public void setPartecipazione(List<Partecipazione> partecipazione) {
         this.partecipazione = partecipazione;
     }
 

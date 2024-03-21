@@ -5,16 +5,17 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-//@Table(name="location")
+@Table(name="locations")
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String città;
-    @ManyToOne
-    @JoinColumn(name="evento_id", nullable=false)
-    private Evento evento;
+    @OneToMany(mappedBy = "location")
+    private List<Evento> evento;
+
+
 
 
     public Location( String nome, String città) {

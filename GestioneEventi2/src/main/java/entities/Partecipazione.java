@@ -3,8 +3,10 @@ package entities;
 import enumerations.Stato;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-//@Table(name="partecipazione")
+@Table(name="partecipations")
 public class Partecipazione {
 
 
@@ -14,16 +16,18 @@ public class Partecipazione {
     private long id;
 //    private String persona;
 //    private String evento;
+    @Enumerated(EnumType.STRING)
     private Stato stato_partecipazione;
     @ManyToOne // relazione con l'entità Persona
     @JoinColumn(name="id_persona", nullable=false)
     private Persona persona;
-    @JoinColumn(name="id_evento", nullable=false)
+    @ManyToOne
+    @JoinColumn(name="id_evento", nullable= false)
     private Evento evento;
 
 
 // COSTRUTTORE
-    public Partecipazione(Persona persona, Evento evento, Stato stato_partecipazione) {
+    public Partecipazione(Persona persona,Evento evento, Stato stato_partecipazione) {
         this.persona = persona;
         this.evento = evento;
         this.stato_partecipazione = stato_partecipazione;

@@ -10,23 +10,27 @@ import java.util.List;
 
 @Entity // classe che avrà tabella corrispondente nel DB
 @Table(name="events") // nome della tabella nel mio DB
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name="tipologiaEvento")
+@NamedQuery(name="Partite vinte in casa",query="SELECT p FROM PartitaDiCalcio WHERE p.squadraDiCasa= :squadra AND p.squadraVincente= :squadra")
+@NamedQuery(name="Partite vinte in trasferta", query="SELECT p FROM PartitaDiCalcio WHERE p.squadraOspite= :squadra AND p.squadraVincente= :squadra")
 public class Evento {
 
     // ATTRIBUTI
     @Id // PK
     @GeneratedValue(strategy = GenerationType.IDENTITY)// id gestiti in automatico dal DB
-    private long id;
-    private String titolo;
-    private LocalDate dataEvento;
-    private String descrizione;
+    protected long id;
+    protected String titolo;
+    protected LocalDate dataEvento;
+    protected String descrizione;
     @Enumerated(EnumType.STRING)
-    private EventType eventType;
-    private int numeroMaxPartecipanti;
-    @OneToMany
-    @JoinColumn(name="partecipazione_id", nullable= false)
-    private Partecipazione partecipazione;
-    @JoinColumn(name = "location_id", nullable=false)
-    private Location location;
+    protected EventType eventType;
+    protected int numeroMaxPartecipanti;
+    @OneToMany(mappedBy = "evento")
+    protected List<Partecipazione> partecipazione;
+    @ManyToOne
+    @JoinColumn(name="id_location")
+    protected Location location;
 
 
  // COSTRUTTORI
